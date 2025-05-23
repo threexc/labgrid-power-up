@@ -1,0 +1,24 @@
+beagleplay:
+  location: ecogrid
+  co-pilot-D30HF051-pin-0:
+    cls: 'MatchedSysfsGPIO'
+    match:
+      '@SUBSYSTEM': usb
+      '@ID_SERIAL_SHORT': 'D30HF051'
+    pin: 0
+  rpi-serial-port1:
+    cls: 'USBSerialPort'
+    match:
+      '@ID_SERIAL_SHORT': 'E663AC91D35C5B2E'
+visionfive:
+  location: ecogrid
+  co-pilot-D30HE1U6-pin-0:
+    cls: 'MatchedSysfsGPIO'
+    match:
+      '@SUBSYSTEM': usb
+      '@ID_SERIAL_SHORT': 'D30HE1U6'
+    pin: 0
+  rpi-serial-port2:
+    cls: 'USBSerialPort'
+    match:
+      '@ID_SERIAL_SHORT': 'E6616408434F1027'
