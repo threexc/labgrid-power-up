@@ -1,0 +1,47 @@
+targets:
+  main:
+    resources:
+      RemotePlace:
+        name: bp
+    drivers:
+      - SerialDriver:
+          name: 'bp-console'
+          bindings:
+            port: 'bp-serial-port'
+      - GpioDigitalOutputDriver:
+          name: 'bp-power-gpio'
+          bindings:
+            gpio: 'bp-power-gpio'
+      - DigitalOutputPowerDriver:
+          name: 'bp-power'
+          bindings:
+            output: 'bp-power-gpio'
+      - TFTPProviderDriver:
+          name: 'bp-tftp-server'
+          bindings:
+            provider: 'bp-tftp'
+      - UBootDriver:
+          prompt: '=> '
+          name: 'bp-uboot'
+          boot_commands:
+            tftp: 'setenv bootargs " ";tftp 0x82000000 beagleplay/Image.gz; bootm 0x82000000#RC'
+          bindings:
+            console: 'bp-console'
+      - ShellDriver:
+          prompt: '\n# '
+          login_prompt: '[-\w]+ login: '
+          username: 'root'
+          name: 'bp-shell'
+          bindings:
+            console: 'bp-console'
+      - BeagleplayBootStrategy:
+          name: 'bp-strategy'
+          bindings:
+            power: 'bp-power'
+            console: 'bp-console'
+            uboot: 'bp-uboot'
+            shell: 'bp-shell'
+            tftp: 'bp-tftp'
+
+imports:
+  - beagleplaybootstrategy.py

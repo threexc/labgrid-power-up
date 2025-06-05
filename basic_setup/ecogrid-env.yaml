@@ -1,0 +1,17 @@
+beagleplay:
+  location: ecogrid
+  bp-power-gpio:
+    cls: 'MatchedSysfsGPIO'
+    match:
+      '@SUBSYSTEM': usb
+      '@ID_SERIAL_SHORT': 'D30HF051'
+    pin: 0
+  bp-serial-port:
+    cls: 'USBSerialPort'
+    match:
+      '@ID_SERIAL_SHORT': 'E663AC91D35C5B2E'
+  bp-tftp:
+    cls: 'RemoteTFTPProvider'
+    host: 'ecovault.oryx-coho.ts.net'
+    internal: '/srv/tftp/beagleplay/'
+    external: 'beagleplay/'
