@@ -17,3 +17,17 @@ Configs and guides for setting up labgrid-based automation
 You should now be able to run commands like `labgrid-client -p bp
 console` to get the serial console, and `labgrid-client -p bp pw cycle`
 to reset the board.
+
+To use the strategy for testing:
+
+1. Run `python3`
+2. `from labgrid import Environment`
+3. `e = Environment("ecogrid-client.yaml")`
+4. `t = e.get_target("main")`
+5. `s = t.get_driver("BeagleplayBootStrategy")`
+
+From here you should be able to run commands like `s.transition("off")`
+and 's.transition("uboot")` (they probably won't work without further
+development). **NOTE:** In this case the "environment" we load is the
+client file because that's where the drivers are - if we try to load
+`ecogrid-env.yaml` instead, we'll get an error.
