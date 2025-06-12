@@ -73,7 +73,10 @@ class BeagleplayBootStrategy(Strategy):
             # transition to uboot
             self.transition(Status.uboot)
             self._set_server_ip()
-            self.uboot.boot("tftp")
+            # We could use boot_commands in the UBootDriver to create a
+            # list of optional boot settings, the names of which could
+            # be passed here in boot() and in other status blocks
+            self.uboot.boot()
             self.uboot.await_boot()
             self.target.activate(self.shell)
         else:
