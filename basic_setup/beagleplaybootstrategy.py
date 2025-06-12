@@ -44,7 +44,7 @@ class BeagleplayBootStrategy(Strategy):
         self.staged = True
 
     def _set_server_ip(self):
-        serverip = "192.168.40.134" #FIXME
+        serverip = "192.168.40.134"
         tftpdir = self.tftp.get_export_vars()['internal']
         
         self.uboot.run(f"setenv autoload no; dhcp")
