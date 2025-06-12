@@ -49,7 +49,6 @@ class BeagleplayBootStrategy(Strategy):
         
         self.uboot.run(f"setenv autoload no; dhcp")
         self.uboot.run(f"setenv serverip {serverip}")
-        self.uboot.run(f"setenv tftpdir {tftpdir}")
 
     def transition(self, status):
         if not isinstance(status, Status):
