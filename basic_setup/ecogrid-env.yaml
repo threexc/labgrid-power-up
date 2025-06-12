@@ -12,6 +12,6 @@ beagleplay:
       '@ID_SERIAL_SHORT': 'E663AC91D35C5B2E'
   bp-tftp:
     cls: 'RemoteTFTPProvider'
-    host: 'ecovault.oryx-coho.ts.net'
+    host: '192.168.40.134'
     internal: '/srv/tftp/beagleplay/'
     external: 'beagleplay/'
