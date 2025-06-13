@@ -27,7 +27,11 @@ To use the strategy for testing:
 5. `s = t.get_driver("BeagleplayBootStrategy")`
 
 From here you should be able to run commands like `s.transition("off")`
-and `s.transition("uboot")` (they probably won't work without further
-development). **NOTE:** In this case the "environment" we load is the
-client file because that's where the drivers are - if we try to load
+and `s.transition("shell")` to boot with the existing rootfs but the
+tftp'd kernel and dtb. The shell script `basic_setup/uboot_test.py`
+captures the five steps from above, but adds `s.transition("shell")` at
+the end for testing.
+
+**NOTE:** In this case the "environment" we load is the client file
+because that's where the drivers are - if we try to load
 `ecogrid-env.yaml` instead, we'll get an error.
