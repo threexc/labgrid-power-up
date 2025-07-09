@@ -10,7 +10,8 @@ class Status(enum.Enum):
     unknown = 0
     off = 1
     uboot = 2
-    shell = 3
+    emmc = 3
+    shell = 4
 
 
 @target_factory.reg_driver
@@ -69,6 +70,12 @@ class BeagleplayBootStrategy(Strategy):
             # interrupt uboot
             self.target.activate(self.uboot)
             self._stage()
+        elif status == Status.emmc:
+            # transition to uboot
+            self.transition(Status.uboot)
+            self.uboot.boot("emmc")
+            self.uboot.await_boot()
+            self.target.activate(self.shell)
         elif status == Status.shell:
             # transition to uboot
             self.transition(Status.uboot)

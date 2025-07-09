@@ -26,14 +26,17 @@ targets:
           interrupt: ' '
           name: 'bp-uboot'
           boot_commands:
+            emmc: 'setenv bootargs "$bootargs console=ttyS2,115200n8 root=/dev/mmcblk0p3 ro rootfstype=ext4 resume=/dev/mmcblk0p2 rootwait net.ifnames=0"; fatload mmc 0:1 $kernel_addr_r Image; fatload mmc 0:1 $fdt_addr_r k3-am625-beagleplay.dtb; booti $kernel_addr_r - $fdt_addr_r'
             tftp: 'setenv bootargs "$bootargs console=ttyS2,115200n8 root=/dev/mmcblk0p3 ro rootfstype=ext4 resume=/dev/mmcblk0p2 rootwait net.ifnames=0"; setenv kernel_comp_addr_r 0x85000000; setenv kernel_comp_size 0x2000000; tftp $kernel_addr_r beagleplay/Image.gz; tftp $fdt_addr_r beagleplay/k3-am625-beagleplay.dtb; booti $kernel_addr_r - $fdt_addr_r'
           bindings:
             console: 'bp-console'
+          login_timeout: 45
+          boot_timeout: 45
       - ShellDriver:
-          prompt: '\x1b\[\?2004hbeagle@[\w-]+:[^ ]+ '
+          prompt: '\x1b\[\?2004hdebian@[\w-]+:[^ ]+ '
           login_prompt: '[-\w]+ login: '
-          username: 'beagle'
-          password: 'beagle'
+          username: 'debian'
+          password: 'debian'
           name: 'bp-shell'
           bindings:
             console: 'bp-console'
