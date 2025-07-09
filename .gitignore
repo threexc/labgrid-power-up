@@ -1,0 +1,5 @@
+logdir/*
+report/*
+*/__pycache__
+*.pyc
+*.pyo
