@@ -11,7 +11,7 @@ class Status(enum.Enum):
     off = 1
     uboot = 2
     emmc = 3
-    shell = 4
+    tftp = 4
 
 
 @target_factory.reg_driver
@@ -76,7 +76,7 @@ class BeagleplayBootStrategy(Strategy):
             self.uboot.boot("emmc")
             self.uboot.await_boot()
             self.target.activate(self.shell)
-        elif status == Status.shell:
+        elif status == Status.tftp:
             # transition to uboot
             self.transition(Status.uboot)
             self._set_server_ip()
@@ -94,7 +94,7 @@ class BeagleplayBootStrategy(Strategy):
             self.target.activate(self.power)
         elif status == Status.uboot:
             self.target.activate(self.uboot)
-        elif status == Status.shell:
+        elif status == Status.tftp:
             self.target.activate(self.shell)
         else:
             raise StrategyError("can not force state {}".format(status))
