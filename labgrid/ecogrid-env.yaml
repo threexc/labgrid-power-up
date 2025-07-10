@@ -1,16 +1,33 @@
-beagleplay:
+bp-kernel:
   location: ecogrid
-  bp-power-gpio:
+  bp-power-gpio-1:
     cls: 'MatchedSysfsGPIO'
     match:
       '@SUBSYSTEM': usb
       '@ID_SERIAL_SHORT': 'D30HF051'
     pin: 0
-  bp-serial-port:
+  bp-serial-port-1:
     cls: 'USBSerialPort'
     match:
       '@ID_SERIAL_SHORT': 'E663AC91D35C5B2E'
-  bp-tftp:
+  bp-tftp-1:
+    cls: 'RemoteTFTPProvider'
+    host: '192.168.40.134'
+    internal: '/srv/tftp/beagleplay/'
+    external: 'beagleplay/'
+bp-yocto:
+  location: ecogrid
+  bp-power-gpio-2:
+    cls: 'MatchedSysfsGPIO'
+    match:
+      '@SUBSYSTEM': usb
+      '@ID_SERIAL_SHORT': 'D30HE1U6'
+    pin: 0
+  bp-serial-port-2:
+    cls: 'USBSerialPort'
+    match:
+      '@ID_SERIAL_SHORT': 'E6616408434F1027'
+  bp-tftp-2:
     cls: 'RemoteTFTPProvider'
     host: '192.168.40.134'
     internal: '/srv/tftp/beagleplay/'
