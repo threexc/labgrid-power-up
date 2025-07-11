@@ -73,7 +73,7 @@ class BeagleplayBootStrategy(Strategy):
             # transition to uboot
             self.transition(Status.uboot)
             self._set_server_ip()
-            self.uboot.boot("tftp")
+            self.uboot.boot("my_tftp")
             self.uboot.await_boot()
             self.target.activate(self.shell)
         else:
