@@ -1,0 +1,50 @@
+targets:
+  main:
+    resources:
+      RemotePlace:
+        name: beagleplay
+    drivers:
+      - SerialDriver:
+          name: 'bp-console'
+          bindings:
+            port: 'bp-serial-port'
+      - GpioDigitalOutputDriver:
+          name: 'bp-power-gpio'
+          bindings:
+            gpio: 'bp-power-gpio'
+      - DigitalOutputPowerDriver:
+          name: 'bp-power'
+          bindings:
+            output: 'bp-power-gpio'
+      - TFTPProviderDriver:
+          name: 'bp-tftp'
+          bindings:
+            provider: 'bp-tftp'
+      - UBootDriver:
+          prompt: '=> '
+          autoboot: 'Press SPACE to abort autoboot in 2 seconds'
+          interrupt: ' '
+          name: 'bp-uboot'
+          boot_commands:
+            tftp: 'setenv bootargs "$bootargs console=ttyS2,115200n8 root=/dev/mmcblk0p3 ro rootfstype=ext4 resume=/dev/mmcblk0p2 rootwait net.ifnames=0"; setenv kernel_comp_addr_r 0x85000000; setenv kernel_comp_size 0x2000000; tftp $kernel_addr_r beagleplay/Image.gz; tftp $fdt_addr_r beagleplay/k3-am625-beagleplay.dtb; booti $kernel_addr_r - $fdt_addr_r'
+          bindings:
+            console: 'bp-console'
+      - ShellDriver:
+          prompt: '\x1b\[\?2004hbeagle@[\w-]+:[^ ]+ '
+          login_prompt: '[-\w]+ login: '
+          username: 'beagle'
+          password: 'beagle'
+          name: 'bp-shell'
+          bindings:
+            console: 'bp-console'
+      - BeagleplayBootStrategy:
+          name: 'bp-strategy'
+          bindings:
+            power: 'bp-power'
+            console: 'bp-console'
+            uboot: 'bp-uboot'
+            shell: 'bp-shell'
+            tftp: 'bp-tftp'
+
+imports:
+  - beagleplaybootstrategy.py
