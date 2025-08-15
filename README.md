@@ -7,7 +7,7 @@ Configs and guides for setting up labgrid-based automation
 2. `source venv/bin/activate`
 3. `pip install labgrid`
 4. In one shell, do `labgrid-coordinator` to start the coordinator
-5. In another shell, do `labgrid-exporter labgrid/ecogrid-env.yaml`
+5. In another shell, do `labgrid-exporter labgrid/ecogrid-exporter.yaml`
 6. In a third shell, do `labgrid-client -v -p bp create`
 7. `labgrid-client -p bp add-match */beagleplay/*`
 8. `labgrid-client -c labgrid/ecogrid-client.yaml acquire`
@@ -32,7 +32,7 @@ the end for testing.
 
 **NOTE:** In this case the "environment" we load is the client file
 because that's where the drivers are - if we try to load
-`ecogrid-env.yaml` instead, we'll get an error.
+`ecogrid-exporter.yaml` instead, we'll get an error.
 
 ### Transition to a State, With Console
 

@@ -10,7 +10,7 @@ From inside the `basic_setup` directory:
 2. `source venv/bin/activate`
 3. `pip install labgrid`
 4. In one shell, do `labgrid-coordinator` to start the coordinator
-5. In another shell, do `labgrid-exporter ecogrid-env.yaml`
+5. In another shell, do `labgrid-exporter ecogrid-exporter.yaml`
 6. In a third shell, do `labgrid-client -v -p bp create`
 7. `labgrid-client -p bp add-match */beagleplay/*`
 8. `labgrid-client -c ecogrid-client.yaml acquire`
@@ -35,4 +35,4 @@ the end for testing.
 
 **NOTE:** In this case the "environment" we load is the client file
 because that's where the drivers are - if we try to load
-`ecogrid-env.yaml` instead, we'll get an error.
+`ecogrid-exporter.yaml` instead, we'll get an error.
