@@ -1,0 +1,39 @@
+targets:
+  main:
+    resources:
+      - RemotePlace:
+          name: 'qemuriscv64'
+      - NetworkService:
+          # The actual address will be filled in by the strategy
+          address: '192.168.7.2'
+          port: 22
+          username: root
+
+    drivers:
+      - QEMUDriver:
+          name: 'qemuriscv64'
+          qemu_bin: 'qemu_riscv64'
+          machine: 'virt'
+          cpu: 'rva22s64'
+          memory: '4G'
+          kernel: 'kernel'
+          display: qemu-default
+          boot_args: "-append 'root=/dev/vda rw ip=192.168.7.2::192.168.7.1:255.255.255.0::eth0:off:8.8.8.8 net.ifnames=0 console=ttyS0 console-hvc0 earlycon=sbi swiotlb=0 '"
+          extra_args: "-device virtio-net-device,netdev=net0,mac=52:54:00:12:34:02 -netdev tap,id=net0,ifname=tap0,script=no,downscript=no -object rng-random,filename=/dev/urandom,id=rng0 -device virtio-rng-pci,rng=rng0 -drive id=disk0,file=/home/tgamblin/workspace/yocto/poky/build/tmp/deploy/images/qemuriscv64/core-image-ptest-python3-numpy-qemuriscv64.rootfs-20250905162522.ext4,if=none,format=raw -device virtio-blk-device,drive=disk0 -device qemu-xhci -device usb-tablet -device usb-kbd -snapshot -device bochs-display -serial vc"
+          bios: bios
+      - ShellDriver:
+          login_prompt: 'qemu login: '
+          username: 'root'
+          prompt: 'qemu:[^ ]+# '
+          login_timeout: 200
+      - SSHDriver: {}
+      - QEMUNetworkStrategy: {}
+
+tools:
+  qemu_riscv64: '/usr/bin/qemu-system-riscv64'
+images:
+  kernel: '/home/tgamblin/workspace/yocto/poky/build/tmp/deploy/images/qemuriscv64/Image'
+  bios: '/home/tgamblin/workspace/yocto/poky/build/tmp/deploy/images/qemuriscv64/fw_jump.elf'
+
+imports:
+  - qemunetworkstrategy.py
