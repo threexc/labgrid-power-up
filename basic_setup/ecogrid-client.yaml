@@ -30,10 +30,10 @@ targets:
           bindings:
             console: 'bp-console'
       - ShellDriver:
-          prompt: '\x1b\[\?2004hbeagle@[\w-]+:[^ ]+ '
+          prompt: '\x1b\[\?2004hdebian@[\w-]+:[^ ]+ '
           login_prompt: '[-\w]+ login: '
-          username: 'beagle'
-          password: 'beagle'
+          username: 'debian'
+          password: 'debian'
           name: 'bp-shell'
           bindings:
             console: 'bp-console'
