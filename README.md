@@ -1,26 +1,28 @@
 # labgrid-power-up
 Configs and guides for setting up labgrid-based automation
 
-## Using the Example in the **labgrid** directory
+## Using the Example in the **basic_setup** directory
+
+### Setup
 
 1. `python3 -m venv venv`
 2. `source venv/bin/activate`
 3. `pip install labgrid`
 4. In one shell, do `labgrid-coordinator` to start the coordinator
-5. In another shell, do `labgrid-exporter labgrid/ecogrid-exporter.yaml`
-6. In a third shell, do `labgrid-client -v -p bp create`
-7. `labgrid-client -p bp add-match */beagleplay/*`
-8. `labgrid-client -c labgrid/ecogrid-client.yaml acquire`
+5. In another shell, do `labgrid-exporter basic_setup/ecogrid-exporter.yaml`
+6. In a third shell, do `labgrid-client -v -p beagleplay create`
+7. `labgrid-client -p beagleplay add-match */beagleplay/*`
+8. `labgrid-client -c basic_setup/ecogrid-client.yaml acquire`
 
-You should now be able to run commands like `labgrid-client -p bp
-console` to get the serial console, and `labgrid-client -p bp pw cycle`
+You should now be able to run commands like `labgrid-client -p beagleplay
+console` to get the serial console, and `labgrid-client -p beagleplay pw cycle`
 to reset the board.
 
 To use the strategy for testing:
 
 1. Run `python3`
 2. `from labgrid import Environment`
-3. `e = Environment("labgrid/ecogrid-client.yaml")`
+3. `e = Environment("basic_setup/ecogrid-client.yaml")`
 4. `t = e.get_target("main")`
 5. `s = t.get_driver("BeagleplayBootStrategy")`
 
@@ -37,5 +39,13 @@ because that's where the drivers are - if we try to load
 ### Transition to a State, With Console
 
 ```
-labgrid-client -c labgrid/ecogrid-client.yaml -p beagleplay -s shell -v con
+labgrid-client -c basic_setup/ecogrid-client.yaml -p beagleplay -s shell -v con
 ```
+
+## Using the Docker Examples
+
+Under construction
+
+## Using QEMU
+
+Under construction
