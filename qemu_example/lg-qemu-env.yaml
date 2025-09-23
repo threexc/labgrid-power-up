@@ -1,0 +1,41 @@
+targets:
+  main:
+    resources:
+      - RemotePlace:
+          name: 'qemuriscv64'
+      - NetworkService:
+          # The actual address will be filled in by the strategy
+          address: ''
+          port: 22
+          username: root
+
+    drivers:
+      - QEMUDriver:
+          name: qemuriscv64
+          qemu_bin: qemu_riscv64
+          machine: virt
+          cpu: rva22s64
+          memory: 4G
+          nic: user,model=virtio-net-pci
+          bios: uboot_latest
+          disk: rootfs_latest
+          kernel: kernel_latest
+          boot_args: "ip=192.168.7.2::192.168.7.1:255.255.255.0::eth0:off:8.8.8.8 net.ifnames=0"
+          extra_args: " -snapshot -device virtio-net-device,netdev=net0,mac=52:54:00:12:34:02 -netdev tap,id=net0,ifname=tap0,script=no,downscript=no"
+      - ShellDriver:
+          login_prompt: 'qemuriscv64 login: '
+          username: 'root'
+          prompt: 'root@\w+:[^ ]+ '
+          login_timeout: 200
+      - SSHDriver: {}
+      - QEMUNetworkStrategy: {}
+
+tools:
+  qemu_riscv64: '/usr/bin/qemu-system-riscv64'
+images:
+  kernel_latest: '/home/tgamblin/workspace/yocto/poky/build/test/uImage'
+  uboot_latest: '/home/tgamblin/workspace/yocto/poky/build/test/fw_jump.elf'
+  rootfs_latest: '/home/tgamblin/workspace/yocto/poky/build/test/core-image-ptest-python3-qemuriscv64.rootfs.ext4'
+
+imports:
+  - qemunetworkstrategy.py
