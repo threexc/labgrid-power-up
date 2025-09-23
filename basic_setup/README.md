@@ -11,12 +11,12 @@ From inside the `basic_setup` directory:
 3. `pip install labgrid`
 4. In one shell, do `labgrid-coordinator` to start the coordinator
 5. In another shell, do `labgrid-exporter ecogrid-exporter.yaml`
-6. In a third shell, do `labgrid-client -v -p bp create`
-7. `labgrid-client -p bp add-match */beagleplay/*`
+6. In a third shell, do `labgrid-client -v -p beagleplay create`
+7. `labgrid-client -p beagleplay add-match */beagleplay/*`
 8. `labgrid-client -c ecogrid-client.yaml acquire`
 
-You should now be able to run commands like `labgrid-client -p bp
-console` to get the serial console, and `labgrid-client -p bp pw cycle`
+You should now be able to run commands like `labgrid-client -p beagleplay
+console` to get the serial console, and `labgrid-client -p beagleplay pw cycle`
 to reset the board.
 
 To use the strategy for testing:
