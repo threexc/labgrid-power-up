@@ -1,0 +1,16 @@
+targets:
+  main:
+    resources:
+      - RemotePlace:
+          name: 'nucleo'
+    drivers:
+      OpenOCDDriver:
+        bindings:
+          interface: 'nucleo-usb-debugger'
+        load_commands:
+          - 'cd ~/workspace/zephyrproject'
+          - 'source .venv/bin/activate'
+          - 'cd zephyr'
+          - 'west build -p always -b nucleo_f446ze samples/basic/blinky'
+          - 'west flash --runner openocd'
+          - 'deactivate'

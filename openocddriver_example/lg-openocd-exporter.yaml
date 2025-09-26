@@ -1,0 +1,6 @@
+nucleo:
+  location: alchemist
+  nucleo-usb-debugger:
+    cls: 'USBDebugger'
+    match:
+      '@ID_SERIAL_SHORT': '066CFF3134584B3043232023'
