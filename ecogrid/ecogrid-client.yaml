@@ -2,7 +2,7 @@ targets:
   main:
     resources:
       RemotePlace:
-        name: bp-kernel
+        name: beagleplay
     drivers:
       - SerialDriver:
           name: 'bp-console-1'
