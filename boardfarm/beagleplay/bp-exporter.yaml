@@ -1,5 +1,5 @@
 bf-beagleplay:
-  location: ecogrid
+  location: lg-exporter-2
   bp-power-gpio-1:
     cls: 'MatchedSysfsGPIO'
     match:
