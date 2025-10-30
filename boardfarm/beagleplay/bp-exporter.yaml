@@ -4,12 +4,12 @@ bf-beagleplay:
     cls: 'MatchedSysfsGPIO'
     match:
       '@SUBSYSTEM': usb
-      '@ID_SERIAL_SHORT': 'D30HF051'
+      '@ID_SERIAL_SHORT': 'D30HF056'
     pin: 0
   bp-serial-port-1:
     cls: 'USBSerialPort'
     match:
-      '@ID_SERIAL_SHORT': 'E663AC91D35C5B2E'
+      '@ID_SERIAL_SHORT': 'E6616408434F1027'
   bp-tftp-1:
     cls: 'RemoteTFTPProvider'
     host: '192.168.40.134'
