@@ -1,4 +1,4 @@
-beagleplay-boardfarm:
+bf-beagleplay:
   location: ecogrid
   bp-power-gpio-1:
     cls: 'MatchedSysfsGPIO'
