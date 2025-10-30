@@ -1,0 +1,50 @@
+targets:
+  main:
+    resources:
+      RemotePlace:
+        name: bf-visionfive2
+    drivers:
+      - SerialDriver:
+          name: 'vf2-console-1'
+          bindings:
+            port: 'vf2-serial-port-1'
+      - GpioDigitalOutputDriver:
+          name: 'vf2-power-gpio-1'
+          bindings:
+            gpio: 'vf2-power-gpio-1'
+      - DigitalOutputPowerDriver:
+          name: 'vf2-power-1'
+          bindings:
+            output: 'vf2-power-gpio-1'
+      - TFTPProviderDriver:
+          name: 'vf2-tftp-1'
+          bindings:
+            provider: 'vf2-tftp-1'
+      - UBootDriver:
+          prompt: '=> '
+          autoboot: 'Press SPACE to abort autoboot in 2 seconds'
+          interrupt: ' '
+          name: 'vf2-uboot-1'
+          bindings:
+            console: 'vf2-console-1'
+          login_timeout: 30
+          boot_timeout: 30
+      - ShellDriver:
+          prompt: '\x1b\[\?2004hdebian@[\w-]+:[^ ]+ '
+          login_prompt: '[-\w]+ login: '
+          username: 'debian'
+          password: 'debian'
+          name: 'vf2-shell-1'
+          bindings:
+            console: 'vf2-console-1'
+      - Visionfive2BootStrategy:
+          name: 'vf2-strategy-1'
+          bindings:
+            power: 'vf2-power-1'
+            console: 'vf2-console-1'
+            uboot: 'vf2-uboot-1'
+            shell: 'vf2-shell-1'
+            tftp: 'vf2-tftp-1'
+
+imports:
+  - visionfive2bootstrategy.py

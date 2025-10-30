@@ -1,0 +1,17 @@
+bf-visionfive2:
+  location: lg-exporter-1
+  vf2-power-gpio-1:
+    cls: 'MatchedSysfsGPIO'
+    match:
+      '@SUBSYSTEM': usb
+      '@ID_SERIAL_SHORT': 'D30HE1U6'
+    pin: 0
+  vf2-serial-port-1:
+    cls: 'USBSerialPort'
+    match:
+      '@ID_SERIAL_SHORT': 'E663AC91D35CA332'
+  vf2-tftp-1:
+    cls: 'RemoteTFTPProvider'
+    host: '192.168.40.134'
+    internal: '/srv/tftp/visionfive2/'
+    external: 'visionfive2/'
