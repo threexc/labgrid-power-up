@@ -1,0 +1,12 @@
+wb-setup-1:
+  location: ecoforge
+  wb-serial-port-1:
+    cls: 'USBSerialPort'
+    match:
+      '@ID_SERIAL_SHORT': 'BUAXf146B11'
+wb-setup-2:
+  location: ecoforge
+  wb-serial-port-2:
+    cls: 'USBSerialPort'
+    match:
+      '@ID_SERIAL_SHORT': 'A50285BI'
