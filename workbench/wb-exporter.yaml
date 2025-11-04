@@ -10,3 +10,15 @@ wb-setup-2:
     cls: 'USBSerialPort'
     match:
       '@ID_SERIAL_SHORT': 'A50285BI'
+wb-scope:
+  location: ecoforge
+  wb-scope-1:
+    cls: 'USBTMC'
+    match:
+      '@ID_SERIAL_SHORT': 'DS1ZA170502437'
+wb-generator:
+  location: ecoforge
+  wb-generator-1:
+    cls: 'USBTMC'
+    match:
+      '@ID_SERIAL_SHORT': 'SDG1XDFQ6R5627'
