@@ -1,0 +1,52 @@
+targets:
+  main:
+    resources:
+      RemotePlace:
+        name: bf-orangepi-rv2
+    drivers:
+      - SerialDriver:
+          name: 'orangepi-rv2-console-1'
+          bindings:
+            port: 'orangepi-rv2-serial-port-1'
+      - GpioDigitalOutputDriver:
+          name: 'orangepi-rv2-power-gpio-1'
+          bindings:
+            gpio: 'orangepi-rv2-power-gpio-1'
+      - DigitalOutputPowerDriver:
+          name: 'orangepi-rv2-power-1'
+          bindings:
+            output: 'orangepi-rv2-power-gpio-1'
+      - TFTPProviderDriver:
+          name: 'orangepi-rv2-tftp-1'
+          bindings:
+            provider: 'orangepi-rv2-tftp-1'
+      - UBootDriver:
+          prompt: '=> '
+          autoboot: 'Loading Environment from MMC'
+          interrupt: 's'
+          name: 'orangepi-rv2-uboot-1'
+          boot_commands:
+            emmc: 'boot'
+          bindings:
+            console: 'orangepi-rv2-console-1'
+          login_timeout: 30
+          boot_timeout: 30
+      - ShellDriver:
+          prompt: '\x1b\[\?2004hroot@[\w-]+:[^ ]+ '
+          login_prompt: '[-\w]+ login: '
+          username: 'root'
+          password: 'orangepi'
+          name: 'orangepi-rv2-shell-1'
+          bindings:
+            console: 'orangepi-rv2-console-1'
+      - OrangePiRV2BootStrategy:
+          name: 'orangepi-rv2-strategy-1'
+          bindings:
+            power: 'orangepi-rv2-power-1'
+            console: 'orangepi-rv2-console-1'
+            uboot: 'orangepi-rv2-uboot-1'
+            shell: 'orangepi-rv2-shell-1'
+            tftp: 'orangepi-rv2-tftp-1'
+
+imports:
+  - orangepirv2bootstrategy.py
