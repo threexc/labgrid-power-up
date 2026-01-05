@@ -1,0 +1,12 @@
+[Unit]
+Description=Labgrid Coordinator Service
+After=network.target
+
+[Service]
+Type=simple
+Environment="PYTHONUNBUFFERED=1"
+ExecStart=/home/tgamblin/labgrid-power-up/venv/bin/labgrid-coordinator
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
