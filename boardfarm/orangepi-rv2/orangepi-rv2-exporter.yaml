@@ -1,4 +1,4 @@
-orangepi-rv2-setup-1:
+bf-orangepi-rv2:
   location: ecoforge
   orangepi-rv2-serial-port-1:
     cls: 'USBSerialPort'
