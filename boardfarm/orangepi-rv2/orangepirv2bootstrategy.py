@@ -76,6 +76,13 @@ class OrangePiRV2BootStrategy(Strategy):
             self.uboot.boot("emmc")
             self.uboot.await_boot()
             self.target.activate(self.shell)
+        elif status == Status.tftp:
+            # transition to uboot
+            self.transition(Status.uboot)
+            self._set_server_ip()
+            self.uboot.boot("tftp")
+            self.uboot.await_boot()
+            self.target.activate(self.shell)
         else:
             raise StrategyError(f"no transition found from {self.status} to {status}")
         self.status = status
@@ -88,6 +95,8 @@ class OrangePiRV2BootStrategy(Strategy):
         elif status == Status.uboot:
             self.target.activate(self.uboot)
         elif status == Status.emmc:
+            self.target.activate(self.shell)
+        elif status == Status.tftp:
             self.target.activate(self.shell)
         else:
             raise StrategyError("can not force state {}".format(status))
