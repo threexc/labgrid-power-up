@@ -1,6 +1,7 @@
 import enum
 
 import attr
+import time
 
 from labgrid.factory import target_factory
 from labgrid.strategy.common import Strategy, StrategyError
@@ -48,7 +49,13 @@ class OrangePiRV2BootStrategy(Strategy):
         serverip = "192.168.40.134"
         tftpdir = self.tftp.get_export_vars()['internal']
         
-        self.uboot.run(f"setenv autoload no; dhcp")
+        self.console.sendline(f"setenv autoload no")
+        self.console.expect(self.uboot.prompt, timeout=3)
+        self.console.sendline(f"dhcp")
+        time.sleep(2)
+        self.console.sendline(f"\x03")
+        self.console.expect(".*", timeout=3)
+        self.uboot.run(f"dhcp")
         self.uboot.run(f"setenv serverip {serverip}")
 
     def transition(self, status):
