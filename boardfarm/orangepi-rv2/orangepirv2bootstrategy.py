@@ -48,15 +48,30 @@ class OrangePiRV2BootStrategy(Strategy):
     def _set_server_ip(self):
         serverip = "192.168.40.134"
         tftpdir = self.tftp.get_export_vars()['internal']
+        self.uboot.run(f"setenv autoload no")
+        try:
+            self.uboot.run(f"dhcp", timeout=10)
+        except Exception as e:
+            self.uboot.run(f"dhcp")
         
-        self.console.sendline(f"setenv autoload no")
-        self.console.expect(self.uboot.prompt, timeout=3)
-        self.console.sendline(f"dhcp")
-        time.sleep(2)
-        self.console.sendline(f"\x03")
-        self.console.expect(".*", timeout=3)
-        self.uboot.run(f"dhcp")
         self.uboot.run(f"setenv serverip {serverip}")
+
+    def _set_bootargs(self):
+        bootargs = (
+            "$bootargs "
+            "console=ttyS0,115200n8 "
+            "root=/dev/nfs "
+            "rw "
+            "nfsroot=$serverip:/srv/nfs3/rv2_1,nfsvers=3,tcp "
+            "ip=dhcp "
+            "rootdelay=5"
+        )
+        self.uboot.run(f"setenv bootargs {bootargs}")
+        self.uboot.run(f" echo $bootargs")
+
+    def _get_tftp_files(self):
+        self.uboot.run(f"tftpboot $kernel_addr_r orangepi-rv2/Image")
+        self.uboot.run(f"tftpboot $fdt_addr_r orangepi-rv2/k1-orangepi-rv2.dtb")
 
     def transition(self, status):
         if not isinstance(status, Status):
@@ -87,6 +102,8 @@ class OrangePiRV2BootStrategy(Strategy):
             # transition to uboot
             self.transition(Status.uboot)
             self._set_server_ip()
+            self._set_bootargs()
+            self._get_tftp_files()
             self.uboot.boot("tftp")
             self.uboot.await_boot()
             self.target.activate(self.shell)

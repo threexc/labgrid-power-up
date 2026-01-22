@@ -22,21 +22,21 @@ targets:
             provider: 'orangepi-rv2-tftp-1'
       - UBootDriver:
           prompt: '=> '
-          autoboot: 'Loading Environment from MMC'
+          autoboot: 'Autoboot in 5 seconds'
           interrupt: 's'
           name: 'orangepi-rv2-uboot-1'
           boot_commands:
             emmc: 'boot'
-            tftp: 'setenv bootargs "$bootargs console=ttyS2,115200n8 root=/dev/nfs rw nfsroot${serverip}:/srv/nfs3/rv2_1,nfsvers=3,tcp ip=dhcp rootdelay=10; tftpboot $kernel_addr_r orangepi-rv2/Image; tftpboot $fdt_addr_r orangepi-rv2/k1-orangepi-rv2.dtb; booti $kernel_addr_r - $fdt_addr_r'
+            tftp: 'booti $kernel_addr_r - $fdt_addr_r'
           bindings:
             console: 'orangepi-rv2-console-1'
           login_timeout: 30
           boot_timeout: 30
+          strip_timestamp: True
       - ShellDriver:
-          prompt: '\x1b\[\?2004hroot@[\w-]+:[^ ]+ '
+          prompt: '(\x1b\[\?2004h)?root@[\w-]+:[^ ]+[#$] '
           login_prompt: '[-\w]+ login: '
           username: 'root'
-          password: 'orangepi'
           name: 'orangepi-rv2-shell-1'
           bindings:
             console: 'orangepi-rv2-console-1'
