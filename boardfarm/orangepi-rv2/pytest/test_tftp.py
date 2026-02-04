@@ -6,7 +6,7 @@ import os
 from labgrid.driver import ExecutionError
 
 def test_tools_available(tftp):
-    tools = ['/bin/bash', '/usr/bin/ls']
+    tools = ['/bin/bash', '/bin/ls']
     missing = []
 
     for tool in tools:
@@ -20,9 +20,9 @@ def test_tools_available(tftp):
 def test_uname_a(tftp):
     version = os.environ.get("VERSION")
     try:
-        state = tftp.run_check('/usr/bin/uname -a', timeout=60.0)
+        state = tftp.run_check('/bin/uname -a', timeout=60.0)
 
         assert(version in state[0])
     except ExecutionError:
-        tftp.run('ls /usr/bin/uname')
+        tftp.run('ls /bin/uname')
         raise
