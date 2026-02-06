@@ -1,0 +1,18 @@
+targets:
+  main:
+    resources:
+      RemotePlace:
+        name: workbench
+    drivers:
+      - SerialDriver:
+          name: 'wb-console-1'
+          bindings:
+            port: 'wb-serial-port-1'
+      - GpioDigitalOutputDriver:
+          name: 'wb-power-gpio-1'
+          bindings:
+            gpio: 'wb-power-gpio-1'
+      - DigitalOutputPowerDriver:
+          name: 'wb-power-1'
+          bindings:
+            output: 'wb-power-gpio-1'
