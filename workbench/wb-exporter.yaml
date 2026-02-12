@@ -9,7 +9,7 @@ wb-setup:
   wb-serial-port-1:
     cls: 'USBSerialPort'
     match:
-      '@ID_SERIAL_SHORT': 'BUAXf146B11'
+      '@ID_SERIAL_SHORT': 'E663AC91D35CA332'
   wb-scope-1:
     cls: 'USBTMC'
     match:
