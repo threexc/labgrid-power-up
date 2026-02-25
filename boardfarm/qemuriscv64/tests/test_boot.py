@@ -10,7 +10,6 @@ class TestBoot:
         assert len(stdout) > 0
         print(f"Kernel version: {stdout[0]}")
 
-    def test_architecture(self, command):
-        stdout, stderr, rc = command("uname -m")
+    def test_ptests(self, command):
+        stdout, stderr, rc = command("ptest-runner", 600)
         assert rc == 0
-        assert "riscv64" in stdout[0]

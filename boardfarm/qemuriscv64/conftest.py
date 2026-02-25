@@ -24,8 +24,8 @@ def boot_to_shell(target, strategy):
 
 
 @pytest.fixture(scope="session")
-def command(boot_to_shell):
+def command(boot_to_shell, cmd_timeout=30):
     """Convenience fixture for running commands."""
-    def _run(cmd, timeout=30):
+    def _run(cmd, timeout=cmd_timeout):
         return boot_to_shell.run(cmd, timeout=timeout)
     return _run
