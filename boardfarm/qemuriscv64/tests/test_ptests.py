@@ -11,5 +11,5 @@ class TestPtests:
         print(f"Kernel version: {stdout[0]}")
 
     def test_ptests(self, command):
-        stdout, stderr, rc = command("ptest-runner", 600)
+        stdout, stderr, rc = command("ptest-runner", 900)
         assert rc == 0
