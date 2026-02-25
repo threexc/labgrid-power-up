@@ -1,4 +1,4 @@
-class TestBoot:
+class TestPtests:
     def test_system_booted(self, command):
         stdout, stderr, rc = command("echo hello")
         assert rc == 0
