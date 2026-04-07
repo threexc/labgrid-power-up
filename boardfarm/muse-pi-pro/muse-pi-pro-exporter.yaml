@@ -1,0 +1,17 @@
+bf-muse-pi-pro:
+  location: ecoforge
+  muse-pi-pro-serial-port-1:
+    cls: 'USBSerialPort'
+    match:
+      '@ID_SERIAL_SHORT': 'E6616408434F1027'
+  muse-pi-pro-power-gpio-1:
+    cls: 'MatchedSysfsGPIO'
+    match:
+      '@SUBSYSTEM': usb
+      '@ID_SERIAL_SHORT': 'D30HF056'
+    pin: 0
+  muse-pi-pro-tftp-1:
+    cls: 'RemoteTFTPProvider'
+    host: '192.168.40.134'
+    internal: '/srv/tftp/muse-pi-pro/'
+    external: 'muse-pi-pro/'
