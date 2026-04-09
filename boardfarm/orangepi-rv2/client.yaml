@@ -50,4 +50,4 @@ targets:
             tftp: 'orangepi-rv2-tftp-1'
 
 imports:
-  - orangepirv2bootstrategy.py
+  - strategy.py

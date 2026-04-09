@@ -15,7 +15,7 @@
 
 ### export
 
-`labgrid-exporter boardfarm/orangepi-rv2/orangepi-rv2-exporter.yaml`
+`labgrid-exporter boardfarm/orangepi-rv2/exporter.yaml`
 
 ### create a place
 
@@ -31,4 +31,4 @@
 
 ### boot it to the default shell (via uboot)
 
-`labgrid-client -c boardfarm/orangepi-rv2/orangepi-rv2-client.yaml -s emmc con`
+`labgrid-client -c boardfarm/orangepi-rv2/client.yaml -s emmc con`
