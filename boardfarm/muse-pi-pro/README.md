@@ -4,7 +4,7 @@
 
 ### export
 
-`labgrid-exporter boardfarm/muse-pi-pro/muse-pi-pro-exporter.yaml`
+`labgrid-exporter boardfarm/muse-pi-pro/exporter.yaml`
 
 ### create a place
 
@@ -20,4 +20,4 @@
 
 ### boot it to the default shell (via uboot)
 
-`labgrid-client -c boardfarm/muse-pi-pro/muse-pi-pro-client.yaml -s emmc con`
+`labgrid-client -c boardfarm/muse-pi-pro/client.yaml -s emmc con`

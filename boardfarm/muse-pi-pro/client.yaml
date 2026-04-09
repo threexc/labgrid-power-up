@@ -50,4 +50,4 @@ targets:
             tftp: 'muse-pi-pro-tftp-1'
 
 imports:
-  - muse_pi_pro_boot_strategy.py
+  - strategy.py
