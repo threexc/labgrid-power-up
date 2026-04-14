@@ -66,6 +66,7 @@ class BananaPiF3BootStrategy(Strategy):
             "rw "
             "rootwait "
             "rootfstype=ext4 "
+            "systemd.journald.storage=volatile "
         )
         self.uboot.run(f"setenv bootargs {bootargs}")
         self.uboot.run(f" echo $bootargs")
