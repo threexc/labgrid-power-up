@@ -72,7 +72,7 @@ class BananaPiF3BootStrategy(Strategy):
 
     def _get_tftp_files(self):
         self.uboot.run(f"tftpboot $kernel_addr_r bananapi-f3/Image")
-        self.uboot.run(f"tftpboot $dtb_addr bananapi-f3/k1-bananapi-f3.dtb")
+        self.uboot.run(f"tftpboot $fdt_addr_r bananapi-f3/k1-bananapi-f3.dtb")
 
     def transition(self, status):
         if not isinstance(status, Status):
