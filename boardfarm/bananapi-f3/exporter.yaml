@@ -3,12 +3,12 @@ bf-bananapi-f3:
   bananapi-f3-serial-port-1:
     cls: 'USBSerialPort'
     match:
-      '@ID_SERIAL_SHORT': 'E6616408434F1027'
+      '@ID_SERIAL_SHORT': 'E663AC91D35CA332'
   bananapi-f3-power-gpio-1:
     cls: 'MatchedSysfsGPIO'
     match:
       '@SUBSYSTEM': usb
-      '@ID_SERIAL_SHORT': 'D30HF056'
+      '@ID_SERIAL_SHORT': 'D30HE1U6'
     pin: 0
   bananapi-f3-tftp-1:
     cls: 'RemoteTFTPProvider'
