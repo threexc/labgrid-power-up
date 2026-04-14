@@ -34,7 +34,7 @@ targets:
           boot_timeout: 30
           strip_timestamp: True
       - ShellDriver:
-          prompt: '(\x1b\[\?2004h)?root@[\w-]+:[^ ]+[#$] '
+          prompt: '(\x1b\[\?2004h)?armbian@[\w-]+:[^ ]+[#$] '
           login_prompt: '[-\w]+ login: '
           username: 'armbian'
           password: 'armbian'
