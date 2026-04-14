@@ -1,0 +1,22 @@
+[Unit]
+Description=Labgrid Muse Pi Pro Exporter
+After=network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=0
+
+[Service]
+Environment="PYTHONUNBUFFERED=1"
+# Should contain LG_COORDINATOR configuration
+EnvironmentFile=-/etc/environment
+ExecStart=/home/labgrid/labgrid-power-up/venv/bin/labgrid-exporter -n bananapi-f3-exporter /home/labgrid/labgrid-power-up/boardfarm/bananapi-f3/exporter.yaml
+Restart=always
+RestartSec=30
+# Replace 'DynamicUser=yes' with 'User=labgrid' and 'Group=labgrid' when using labgrid helpers with sudo.
+#DynamicUser=yes
+User=labgrid
+Group=labgrid
+# Adjust to your distribution (most often "dialout" or "tty")
+SupplementaryGroups=dialout plugdev
+
+[Install]
+WantedBy=multi-user.target
