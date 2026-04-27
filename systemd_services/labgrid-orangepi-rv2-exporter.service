@@ -1,6 +1,6 @@
 [Unit]
 Description=Labgrid OrangePi RV2 Exporter
-After=network-online.target
+After=labgrid-coordinator.service
 Wants=network-online.target
 StartLimitIntervalSec=0
 

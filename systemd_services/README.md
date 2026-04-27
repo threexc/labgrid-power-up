@@ -5,3 +5,6 @@ These are designed to be run as a normal user, and located in
 
 1. `systemctl --user enable labgrid-coordinator.service`
 2. `systemctl --user start labgrid-coordinator.service`
+
+The exporter services are intended to start after labgrid-coordinator, otherwise
+they may fail because the former is still coming up.
