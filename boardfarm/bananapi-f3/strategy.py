@@ -3,6 +3,8 @@ import enum
 import attr
 import time
 
+import boardfarm_common.helpers as helpers
+
 from labgrid.factory import target_factory
 from labgrid.strategy.common import Strategy, StrategyError
 
@@ -28,52 +30,24 @@ class BananaPiF3BootStrategy(Strategy):
     }
 
     status = attr.ib(default=Status.unknown)
+    bootargs = (
+        "root=PARTUUID=1e270826-01 "
+        "earlycon=sbi "
+        "console=tty1 "
+        "console=ttyS0,115200n8 "
+        "loglevel=7 "
+        "rw "
+        "rootwait "
+        "rootfstype=ext4 "
+        "systemd.journald.storage=volatile "
+    )
 
     def __attrs_post_init__(self):
         super().__attrs_post_init__()
         self.staged = False
 
     def _stage(self):
-        if self.staged:
-            return
-        self.target.activate(self.tftp)
-
-        for name, image in self.target.env.config.get_images().items():
-            if name.startswith('tftp-'):
-                self.tftp.stage(image)
-
-        self.target.deactivate(self.tftp)   
-        self.staged = True
-
-    def _set_server_ip(self):
-        serverip = "192.168.40.134"
-        tftpdir = self.tftp.get_export_vars()['internal']
-        self.uboot.run(f"setenv autoload no")
-        try:
-            self.uboot.run(f"dhcp", timeout=10)
-        except Exception as e:
-            self.uboot.run(f"dhcp")
-        
-        self.uboot.run(f"setenv serverip {serverip}")
-
-    def _set_bootargs(self):
-        bootargs = (
-            "root=PARTUUID=1e270826-01 "
-            "earlycon=sbi "
-            "console=tty1 "
-            "console=ttyS0,115200n8 "
-            "loglevel=7 "
-            "rw "
-            "rootwait "
-            "rootfstype=ext4 "
-            "systemd.journald.storage=volatile "
-        )
-        self.uboot.run(f"setenv bootargs {bootargs}")
-        self.uboot.run(f" echo $bootargs")
-
-    def _get_tftp_files(self):
-        self.uboot.run(f"tftpboot $kernel_addr_r bananapi-f3/Image")
-        self.uboot.run(f"tftpboot $fdt_addr_r bananapi-f3/k1-bananapi-f3.dtb")
+        helpers.uboot_stage(self)
 
     def transition(self, status):
         if not isinstance(status, Status):
@@ -103,8 +77,10 @@ class BananaPiF3BootStrategy(Strategy):
         elif status == Status.tftp:
             # transition to uboot
             self.transition(Status.uboot)
-            self._set_server_ip()
-            self._set_bootargs()
+            helpers.uboot_set_server_ip(self)
+            helpers.uboot_set_bootargs(self, self.bootargs)
+            helpers.uboot_tftpboot_file(self, "$kernel_addr_r", "bananapi-f3", "Image")
+            helpers.uboot_tftpboot_file(self, "$fdt_addr_r", "bananapi-f3", "k1-bananapi-f3.dtb")
             self._get_tftp_files()
             self.uboot.boot("tftp")
             self.uboot.await_boot()
