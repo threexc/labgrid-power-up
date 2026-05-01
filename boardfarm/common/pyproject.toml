@@ -1,5 +1,5 @@
 [build-system]
-requires = ["uv_build>=0.5"]
+requires = ["uv_build>=0.5,<0.12"]
 build-backend = "uv_build"
 
 [project]
@@ -8,8 +8,10 @@ version = "0.1.0"
 description = "Shared helpers and fixtures for boardfarm pytest suites"
 requires-python = ">=3.11"
 dependencies = [
-    "pytest",
+    "ansicolors",
     "labgrid",
+    "pytest",
+    "pytest-html",
 ]
 
 [tool.uv.sources]
