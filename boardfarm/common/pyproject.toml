@@ -12,6 +12,9 @@ dependencies = [
     "labgrid",
 ]
 
+[tool.uv.sources]
+labgrid = { git = "https://github.com/labgrid-project/labgrid", branch = "master" }
+
 # Auto-loaded into any pytest run inside this venv:
 [project.entry-points.pytest11]
 boardfarm_common = "boardfarm_common.fixtures"
