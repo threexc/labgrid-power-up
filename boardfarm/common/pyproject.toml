@@ -1,0 +1,17 @@
+[build-system]
+requires = ["uv_build>=0.5"]
+build-backend = "uv_build"
+
+[project]
+name = "boardfarm-common"
+version = "0.1.0"
+description = "Shared helpers and fixtures for boardfarm pytest suites"
+requires-python = ">=3.11"
+dependencies = [
+    "pytest",
+    "labgrid",
+]
+
+# Auto-loaded into any pytest run inside this venv:
+[project.entry-points.pytest11]
+boardfarm_common = "boardfarm_common.fixtures"

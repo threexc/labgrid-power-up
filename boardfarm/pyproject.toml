@@ -1,0 +1,25 @@
+[project]
+name = "boardfarm"
+version = "0.1.0"
+description = "tgamblin's board farm test suites"
+requires-python = ">=3.11"
+dependencies = [
+    "boardfarm-common",
+]
+
+[build-system]
+requires = ["uv_build>=0.5,<0.12"]
+build-backend = "uv_build"
+
+[tool.uv]
+package = false
+
+[tool.uv.workspace]
+members = ["common"]
+
+[tool.uv.sources]
+boardfarm-common = { workspace = true }
+
+# Tell pytest where to look and set a sensible rootdir.
+[tool.pytest.ini_options]
+testpaths = ["bananapi-f3/pytest", "muse-pi-pro/pytest", "orangepi-rv2/pytest"]
