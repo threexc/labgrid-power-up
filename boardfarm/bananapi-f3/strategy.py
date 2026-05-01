@@ -81,7 +81,6 @@ class BananaPiF3BootStrategy(Strategy):
             helpers.uboot_set_bootargs(self, self.bootargs)
             helpers.uboot_tftpboot_file(self, "$kernel_addr_r", "bananapi-f3", "Image")
             helpers.uboot_tftpboot_file(self, "$fdt_addr_r", "bananapi-f3", "k1-bananapi-f3.dtb")
-            self._get_tftp_files()
             self.uboot.boot("tftp")
             self.uboot.await_boot()
             self.target.activate(self.shell)
